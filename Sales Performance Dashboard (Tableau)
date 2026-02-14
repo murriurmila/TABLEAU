@@ -1,0 +1,16 @@
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv("SampleSuperstore.csv")
+
+# Basic cleaning
+df = df.dropna()
+df['Order Date'] = pd.to_datetime(df['Order Date'])
+
+# Create Year, Month columns
+df['Year'] = df['Order Date'].dt.year
+df['Month'] = df['Order Date'].dt.month
+df['Revenue'] = df['Sales'] - df['Profit']  # example calculated field
+
+# Export cleaned data for Tableau
+df.to_csv("cleaned_sales_data.csv", index=False)
